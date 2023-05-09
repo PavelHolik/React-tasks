@@ -1,0 +1,13 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  .text{
+    width: 250px;
+    padding: 5px 0;
+    border: thick double #32a1ce;
+    margin-bottom: 5px;
+    font-style: italic;
+    background-color: rgb(240, 203, 232);
+  }
