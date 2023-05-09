@@ -5,10 +5,12 @@ import { Input } from "./components/Input/Input";
 import { Paragraph } from "./components/Paragraph/Paragraph";
 function App() {
   const [inputOne, setinputOne] = useState("");
+  const [inputTwo, setinputTwo] = useState("");
   const [elements, setElements] = useState([]);
   const handleResetInputs = () => {
-    setElements((prevState) => [inputOne, ...prevState]);
+    setElements((prevState) => [`Заголовок:${inputTwo}, Текст:${inputOne}`, ...prevState]);
     setinputOne("");
+    setinputTwo("");
     console.log(elements);
   };
 
@@ -19,7 +21,12 @@ function App() {
         <Input
           value={inputOne}
           onChange={(event) => setinputOne(event.target.value)}
-          placeholder="Введите текст для ToDo"
+          placeholder="Текст для ToDo"
+        />
+        <Input
+          value={inputTwo}
+          onChange={(event) => setinputTwo(event.target.value)}
+          placeholder="Заголовок для ToDo"
         />
         <Button onClick={handleResetInputs} />
         </div>
