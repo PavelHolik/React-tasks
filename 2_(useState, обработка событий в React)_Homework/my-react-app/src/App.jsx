@@ -7,34 +7,67 @@ function App() {
   const [inputOne, setinputOne] = useState("");
   const [inputTwo, setinputTwo] = useState("");
   const [elements, setElements] = useState([]);
+  const [inputSearch, setinputSearch] = useState("");
+  const [elementsWithSearch, setelementsWithSearch] = useState([]);
   const handleResetInputs = () => {
-    setElements((prevState) => [`Заголовок:${inputTwo}, Текст:${inputOne}`, ...prevState]);
+    setElements((prevState) => [
+      {
+        task: inputTwo,
+        detail: inputOne,
+      },
+      ...prevState,
+    ]);
     setinputOne("");
     setinputTwo("");
     console.log(elements);
+  };
+  const sortElements = (event) => {
+    setinputSearch(event.target.value);
+
+    if (elements.length) {
+      setelementsWithSearch(
+        elements.filter(
+          (element) =>
+            element.task.includes(event.target.value) ||
+            element.detail.includes(event.target.value)
+        )
+      );
+    }
   };
 
   return (
     <>
       <div className="container">
         <div className="higherBlock">
-        <Input
-          value={inputOne}
-          onChange={(event) => setinputOne(event.target.value)}
-          placeholder="Текст для ToDo"
-        />
-        <Input
-          value={inputTwo}
-          onChange={(event) => setinputTwo(event.target.value)}
-          placeholder="Заголовок для ToDo"
-        />
-        <Button onClick={handleResetInputs} />
+          <Input
+            value={inputOne}
+            onChange={(event) => setinputOne(event.target.value)}
+            placeholder="Текст для ToDo"
+          />
+          <Input
+            value={inputTwo}
+            onChange={(event) => setinputTwo(event.target.value)}
+            placeholder="Заголовок для ToDo"
+          />
+          <Button onClick={handleResetInputs} />
+          <Input
+            value={inputSearch}
+            onChange={sortElements}
+            placeholder="Поиск"
+          />
         </div>
-        {elements.map((text) => (
-          <Paragraph key={text}>
-            {text}
-          </Paragraph>
-        ))}
+
+        {inputSearch
+          ? elementsWithSearch.map((element) => (
+              <Paragraph key={element.task}>
+                {element.task}:{element.detail}
+              </Paragraph>
+            ))
+          : elements.map((element) => (
+              <Paragraph key={element.task}>
+                {element.task}:{element.detail}
+              </Paragraph>
+            ))}
       </div>
     </>
   );
